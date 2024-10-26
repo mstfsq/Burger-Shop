@@ -1,6 +1,8 @@
 ﻿Imports System.Linq.Expressions
 Imports System.IO
 Imports System.ComponentModel.Design
+Imports System.Net
+Imports System.Net.Security
 Imports System.Runtime.Remoting.Services
 
 
@@ -19,13 +21,7 @@ Module Module1
     Dim programEnterInput As Boolean = False
     Dim orderCustomizer As Integer
     Dim orderCustomeizerInvalid As Boolean = False
-    Dim MealCustomizerInvalid As Boolean = False
-    Dim mealModifierInput As String
-    Dim mealModifierInputInvalid As Boolean
-    Dim MealModConfirm As String
-    Dim MealModConfirmInput As Boolean
-    Dim mealCustomizerAppInput As String
-
+    
     Sub studentDiscuont()
         Console.Clear()
         studentCheckInvalidInput = False
@@ -60,6 +56,8 @@ Module Module1
         End
     End Sub
 
+    
+  
     Sub mealCustomizer(ByRef total)
 
 
@@ -72,7 +70,7 @@ Module Module1
             Console.WriteLine("Soda Can             1")
 
         ElseIf mealSelect = 2 Then
-            Console.WriteLine("You have selected the Basic Meal for $" & total)
+            Console.WriteLine("You have selected the Premium Meal for $" & total)
             Console.WriteLine("Item                 Quantity")
             Console.WriteLine("-----------------------------")
             Console.WriteLine("Double Cheese Burger        1")
@@ -80,7 +78,7 @@ Module Module1
             Console.WriteLine("Large Soda Can              1")
 
         ElseIf mealSelect = 3 Then
-            Console.WriteLine("You have selected the Basic Meal for $" & total)
+            Console.WriteLine("You have selected the Luxury Meal for $" & total)
             Console.WriteLine("Item                 Quantity")
             Console.WriteLine("-----------------------------")
             Console.WriteLine("Double Cheese Burger        1")
@@ -89,16 +87,145 @@ Module Module1
 
 
         End If
+        
+        dim mealCustomizeDec as string 'meal customizer decision 
+        dim mealCustomizeDecInput as boolean = false ' meal customize decision input loop trigger
 
+
+        Console.WriteLine()
         Console.WriteLine("Would you like to customize your meal")
         Console.WriteLine("-------------------------------------")
         Console.WriteLine("Choice                       InputKey")
         Console.WriteLine("-------------------------------------")
         Console.WriteLine("YES                                 1")
         Console.WriteLine("NO                                  2")
+        
 
         ' finish off meal customizer
+        
+        
+        do 
+            mealCustomizeDec = console.readline
+        if mealCustomizeDec = "1" Then
+            Console.Clear()
+            
+            Console.WriteLine("                               Meal Customizer                               ")
+            Console.WriteLine("-----------------------------------------------------------------------------")
+            If mealSelect = 1 Then
+                Console.WriteLine("               You have selected the Basic Meal for $" & total)
+                Console.WriteLine("               Item          Quantity")
+                Console.WriteLine("               ----------------------")
+                Console.WriteLine("               Cheese Burger        1")
+                Console.WriteLine("               Regular Fries        1")
+                Console.WriteLine("               Soda Can             1")
 
+            ElseIf mealSelect = 2 Then
+                Console.WriteLine("              You have selected the Premium Meal for $" & total) 
+                Console.WriteLine("              Item                 Quantity")
+                Console.WriteLine("              -----------------------------")
+                Console.WriteLine("              Double Cheese Burger        1")
+                Console.WriteLine("              Regular Fries               2")
+                Console.WriteLine("              Large Soda Can              1")
+
+            ElseIf mealSelect = 3 Then
+                Console.WriteLine("              You have selected the Luxury Meal for $" & total)
+                Console.WriteLine("              Item                 Quantity")
+                Console.WriteLine("              -----------------------------")
+                Console.WriteLine("              Double Cheese Burger        2")
+                Console.WriteLine("              Large Fries                 2")
+                Console.WriteLine("              Large Soda Can              1")
+                
+                end if
+            
+            Console.writeline("Press <ENTER> to continue")
+            Console.readline
+            
+            dim burger as integer
+            dim fries as integer  
+            dim drink as integer 
+
+            
+            if mealselect = 3 Then
+                burger=2
+                fries =2 
+                drink = 1
+                
+            elseif mealSelect = 2 Then
+                    burger = 1
+                    fries=2
+                    drink= 1
+                    
+            elseif mealSelect = 3 Then
+               burger =2
+                fries =2 
+                drink = 1
+                
+            End If
+            
+            Console.writeline("Action                 Price                InputKey")
+            Console.WriteLine("----------------------------------------------------")
+            Console.WriteLine("Extra Burger           3.00                        1")
+            Console.WriteLine("Extra Fries            2.00                        2")
+            Console.WriteLine("Extra Drink            1.00                        3")
+            dim extraAction as String
+            dim extraActionInvalid as boolean = false
+            
+            
+            
+            
+            do 
+                extraAction = console.ReadLine()
+            if extraAction = "1" Then
+                burger = burger + 1
+                total = total + 3
+                
+                elseif extraAction = "2" then
+                    fries = fries + 1
+                    total = total + 2
+                    
+                    else if extraAction = "3" Then
+                        drink = drink + 1
+                        total = total + 1
+                        
+                        else 
+                            extraActionInvalid = true
+                            Console.WriteLine("invalid input,try again")
+                        
+                        
+            End If
+            loop until extraActionInvalid = false
+            
+            Console.WriteLine("This is your customized meal")
+            Console.WriteLine("              Item                  Quantity")
+            Console.WriteLine("              ------------------------------")
+            Console.WriteLine("              Burgers                     " & burger)
+            Console.WriteLine("              Fries                       " & fries)
+            Console.WriteLine("              Soda Cans                   " & drink)
+            
+            Console.WriteLine("your new total is " & total)
+            Console.WriteLine()
+            Console.WriteLine("Press <ENTER> to continue")
+            Console.ReadLine()
+
+            
+            
+            
+            
+            
+            Console.Clear()
+            Exit Sub
+            
+            elseif mealCustomizeDec = "2" Then
+                Exit Sub
+            else 
+                mealCustomizeDecInput = true
+                Console.WriteLine("Invalid input,please try again")
+        End If
+        loop until mealCustomizeDecInput = false
+        
+        
+
+        
     End Sub
 
 
@@ -143,9 +270,14 @@ Module Module1
                 Console.WriteLine("Burger                               1")
                 Console.WriteLine("Sides                                2")
                 Console.WriteLine("Meals                                3")
+                
+                Console.Clear()
+                
+                
+                
                 Do
                     mselect = Console.ReadLine()
-                    Console.Clear()
+                    
                     If mselect = "1" Then
                         Console.WriteLine("Item                 Price        InputKey")
                         Console.WriteLine("---------------------------------------------------------------------------")
@@ -454,7 +586,7 @@ Module Module1
             Console.WriteLine("                              -----------------------|----------------------|-------------------|-------------|")
             sw.WriteLine("                                  -----------------------|----------------------|-------------------|-------------|")
             Console.WriteLine("                                      " & orderinfo(i, 1) & "              " & orderinfo(i, 2) & "                " & orderinfo(i, 0) & "            " & orderinfo(i, 3) & "   ")
-            sw.WriteLine("                                      " & orderinfo(i, 1) & "              " & orderinfo(i, 2) & "                " & orderinfo(i, 0) & "            " & orderinfo(i, 3) & "   ")
+            sw.WriteLine("                                      " & orderinfo(i, 1) & "                   " & orderinfo(i, 2) & "                " & orderinfo(i, 0) & "            " & orderinfo(i, 3) & "   ")
 
         Next
         sw.Close()
